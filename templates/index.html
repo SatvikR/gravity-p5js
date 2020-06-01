@@ -1,0 +1,107 @@
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand">
+          Gravity Simulator for p5.js
+        </a>
+    </nav>
+
+    <p><br></p>
+    <h1 style="text-align:center;">Use the Arrow Keys!</h1>
+    
+    <script type="text/javascript">
+        let player = {
+            x: 30,
+            y: 100,
+            width: 30,
+            height: 60,
+            x_vel: 0,
+            y_vel: 0
+        }
+
+        var cnv;
+
+        function centerCanvas() {
+            var x = (windowWidth - width) / 2;
+            var y = (windowHeight - height) / 2;
+            cnv.position(x, y);
+        }
+        function setup() {
+            cnv = createCanvas(600, 600);
+            centerCanvas();
+        }
+
+        function draw() {
+            background('#d29a8c');
+
+            update_player();
+
+            fill(color('#b3ae6d'));
+            rect(player.x, player.y, player.width, player.height);
+
+            let x_val = 'x_pos: ' + str(player.x);
+            let y_val = 'y_pos: ' + str(round(player.y));
+            let x_vel = 'x_vel: ' + str(player.x_vel);
+            let y_vel = 'y_vel: ' + str(round(player.y_vel));
+
+            textSize(15);
+            fill('#000000');
+            text(x_val, 10, 20);
+            text(y_val, 90, 20);
+            text(x_vel, 450, 20);
+            text(y_vel, 530, 20);
+
+            textSize(25);
+            text('Gravity Simulator', 215, 35);
+
+        }
+
+        function keyPressed() {
+            if (keyCode === LEFT_ARROW) {
+                player.x_vel = -4;
+                console.log("LEFT");
+            } else if (keyCode === RIGHT_ARROW) {
+                player.x_vel = 4;
+            } else if (keyCode === UP_ARROW) {
+                jump();
+            }
+        }
+        function keyReleased() {
+            if (keyCode === LEFT_ARROW) {
+                player.x_vel = 0;
+            } else if (keyCode === RIGHT_ARROW) {
+                player.x_vel = 0;
+            }
+        }
+
+        function update_player() {
+            // gravity
+            player.y_vel += 1.2;
+            if (player.y + player.height >= height && player.y_vel > 0) {
+                player.y_vel = 0;
+                player.y = height - player.height
+            }
+
+            player.y += player.y_vel;
+
+            if (player.x_vel > 0 && player.x + player.width < width) {
+                player.x += player.x_vel;
+            } else if (player.x_vel < 0 && player.x > 0) {
+                player.x += player.x_vel;
+            }
+        }
+
+        function jump() {
+            if (player.y_vel === 0) {
+                player.y_vel = -20;
+            }
+        }
+    </script>   
+  </body>
+</html>
