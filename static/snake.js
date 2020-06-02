@@ -53,7 +53,7 @@ function draw() {
 }
 
 function drawGrid() {
-	for (let i = 1; i < rows; i++) {
+	for (let i = 0; i < rows + 1; i++) {
 		line(i * node_w, 0, i * node_w, height);
 		line(0, i * node_h, width, i * node_h);
 	}
