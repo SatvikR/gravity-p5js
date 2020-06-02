@@ -14,6 +14,7 @@ function centerCanvas() {
     var y = (windowHeight - height) / 2;
     cnv.position(x, y);
 }
+
 function setup() {
     cnv = createCanvas(600, 600);
     centerCanvas();

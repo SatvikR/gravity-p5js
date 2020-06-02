@@ -1,0 +1,7 @@
+{% extends "index.html" %}
+{% block sketch %}
+
+<h1 style="text-align:center;"> Use the Arrow Keys! </h1>
+<script type = "text/javascript" 
+        src = "{{ url_for('static', filename = 'snake.js') }}" ></script>
+{% endblock %}
